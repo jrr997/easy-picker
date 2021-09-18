@@ -1,0 +1,12 @@
+/* components/supertimePicker/supertimePicker.wxss */
+.chosenbox{
+  height: 68rpx;
+}
+.picker-column {
+  height: 400rpx; /* picker的高度 */
+  width: 100%;
+}
+.picker-column__list {
+  line-height: 68rpx;
+  text-align: center;
+}

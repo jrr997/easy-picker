@@ -1,0 +1,32 @@
+<picker-view 
+  value="[0,1,2]" 
+  indicator-class="chosenbox"
+  bindchange="pickerChange" 
+  value="{{chosenArray}}">
+
+  <picker-view-column class="picker-column" wx-if="{{isShownColumn[0]}}">
+    <view wx:for="{{years}}" wx:key="item" class=".picker-column__list">{{item}}年</view>
+  </picker-view-column>
+
+  <picker-view-column  class="picker-column" wx-if="{{isShownColumn[1]}}">
+    <view wx:for="{{months}}" wx:key="item" class=".picker-column__list">{{item}}月</view>
+  </picker-view-column>
+
+  <picker-view-column class="picker-column" wx-if="{{isShownColumn[2]}}">
+    <view wx:for="{{days}}" wx:key="item" class=".picker-column__list">{{item}}日</view>
+  </picker-view-column>
+
+  <picker-view-column class="picker-column" wx-if="{{isShownColumn[3]}}">
+    <view wx:for="{{hours}}" wx:key="item" class=".picker-column__list">{{item}}时</view>
+  </picker-view-column>
+
+  <picker-view-column  class="picker-column" wx-if="{{isShownColumn[4]}}">
+    <view wx:for="{{minutes}}" wx:key="item" class=".picker-column__list">{{item}}分</view>
+  </picker-view-column>
+
+  <picker-view-column class="picker-column" wx-if="{{isShownColumn[5]}}">
+    <view wx:for="{{seconds}}" wx:key="item" class=".picker-column__list">{{item}}秒</view>
+  </picker-view-column>
+
+</picker-view>
+
