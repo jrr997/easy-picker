@@ -1,3 +1,5 @@
 
 <view style="margin:50px 0 300px 50px;font-size:20px">已选时间： {{time}}</view>
 <easy-picker mode="hour" bindtimeChange="onTimeChange" />
+<!-- <time-picker mode="hour" bindtimeChange="onTimeChange" pickerShow="{{true}}"/> -->
+<range-picker mode="hour" bindtimeChange="onTimeChange" pickerShow="{{true}}"/>

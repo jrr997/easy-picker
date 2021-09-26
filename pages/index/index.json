@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "easy-picker": "/components/easyPicker/easyPicker"
+    "easy-picker": "/components/easyPicker/easyPicker",
+    "time-picker": "/components/timePicker/timePicker",
+    "range-picker": "/components/rangePicker/rangePicker"
   }
 }

@@ -1,0 +1,30 @@
+<!--components/timePicker/timePicker.wxml-->
+<!-- 自定义时间筛选器 -->
+<view hidden="{{!pickerShow}}">
+  <view class="picker-container {{pickerShow?'show_picker':'hide_picker'}}" animation="{{animationData}}">
+    <view class="header">
+      <view class="close" bindtap="hideModal"><i class="iconfont iconguanbi1 x"></i></view>
+      <view class="title" bindtap="getData">有效期筛选</view>
+    </view>
+
+    <view class="btn-box">
+      <!-- <view class="flex"> -->
+        <view class="{{tabIndex===0?'text-base text--active':'text-base'}} " bindtap="tabChange" data-type="{{0}}">{{showStartTime || '开始时间'}}</view>
+        <view class="{{tabIndex===1?'text-base text--active':'text-base'}}" bindtap="tabChange" data-type="{{1}}">{{showEndTime || '结束时间'}}</view>
+      <!-- </view> -->
+    </view>
+    <view class="sensorTypePicker" hidden="{{tabIndex!==0}}" data-type="{{0}}">
+      <easy-picker mode="day" bindtimeChange="onStartTimeChange"  />
+    </view>
+    <view class="sensorTypePicker" hidden="{{tabIndex!==1}}" data-type="{{1}}">
+      <easy-picker mode="day" bindtimeChange="onEndTimeChange" />
+    </view>
+    <view class="flex_c">
+      <view class='complete' bindtap="onConfirm">完成</view>
+  </view>
+
+  </view>
+  <!-- 遮罩 -->
+  <view class="sensorType-screen" bindtap="hideModal" animation="{{animationOpacity}}"/>
+</view>
+

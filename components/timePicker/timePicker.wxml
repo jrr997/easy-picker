@@ -1,0 +1,100 @@
+<!--components/timePicker/timePicker.wxml-->
+<!-- 自定义时间筛选器 -->
+<view catchtouchmove="preventD" hidden="{{!pickerShow}}">
+  <view class="picker-container {{pickerShow?'show_picker':'hide_picker'}}" animation="{{animationData}}">
+    <view class="header">
+      <view class="close" bindtap="hideModal"><i class="iconfont iconguanbi1 x"></i></view>
+      <view class="title" bindtap="getData">有效期筛选</view>
+    </view>
+
+    <view class="btn-box">
+      <!-- <view class="flex"> -->
+        <view class="{{tabIndex===0?'text-base text--active':'text-base'}} " bindtap="tabChange" data-type="{{0}}">{{showStartTime || '开始时间'}}</view>
+        <view class="{{tabIndex===1?'text-base text--active':'text-base'}}" bindtap="tabChange" data-type="{{1}}">{{showEndTime || '结束时间'}}</view>
+      <!-- </view> -->
+    </view>
+
+
+    <view wx:if="{{tabIndex===0}}" wx:key="tab0">
+      <picker-view class='sensorTypePicker' indicator-style='height: 70rpx;' bindchange="changeStartDateTime"
+        value="{{startValue}}" style="height: {{endDate?'240rpx':'380rpx'}};" bindpickstart="handlePickStart" bindpickend="handlePickEnd">
+        <picker-view-column style="min-width: 70px;flex-shrink: 0">
+          <view class='picker-item' wx:for="{{startYearList}}" wx:key='*this'>{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class='picker-item' wx:for="{{startMonthList}}" wx:key='*this'>{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class='picker-item' wx:for="{{startDayList}}" wx:key='*this'>{{item}}日</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!hourColumn}}">
+          <view class='picker-item' wx:for="{{startHourList}}" wx:key='*this'>{{item}}时</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!minColumn}}">
+          <view class='picker-item' wx:for="{{startMinuteList}}" wx:key='*this'>{{item}}分</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!secColumn}}">
+          <view class='picker-item' wx:for="{{startSecondList}}" wx:key='*this'>{{item}}秒</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <!-- <view wx:if="{{tabIndex===1}}" wx:key="tab1">
+      <picker-view class='sensorTypePicker' indicator-style='height: 35px;' bindchange="changeStartDateTime"
+        value="{{startValue}}" style="height: {{endDate?'120px':'250px'}};" bindpickstart="handlePickStart" bindpickend="handlePickEnd">
+        <picker-view-column style="min-width: 70px;flex-shrink: 0">
+          <view class='picker-item' wx:for="{{startYearList}}" wx:key='*this'>{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class='picker-item' wx:for="{{startMonthList}}" wx:key='*this'>{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class='picker-item' wx:for="{{startDayList}}" wx:key='*this'>{{item}}日</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!hourColumn}}">
+          <view class='picker-item' wx:for="{{startHourList}}" wx:key='*this'>{{item}}时</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!minColumn}}">
+          <view class='picker-item' wx:for="{{startMinuteList}}" wx:key='*this'>{{item}}分</view>
+        </picker-view-column>
+        <picker-view-column hidden="{{!secColumn}}">
+          <view class='picker-item' wx:for="{{startSecondList}}" wx:key='*this'>{{item}}秒</view>
+        </picker-view-column>
+      </picker-view>
+    </view> -->
+
+    <view wx:if="{{tabIndex===1}}">
+      <!-- <view class='to' style='margin-top: 4px;margin-bottom: 4px;'>至</view> -->
+        <picker-view class='sensorTypePicker' style="height: 380rpx;" indicator-style='height: 35px;' bindchange="changeEndDateTime" bindpickstart="handlePickStart" bindpickend="handlePickEnd" 
+          value="{{endValue}}">
+          <picker-view-column style="min-width: 70px;flex-shrink: 0">
+            <view class='picker-item' wx:for="{{endYearList}}" wx:key='*this' style="min-width: 70px;">{{item}}年</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class='picker-item' wx:for="{{endMonthList}}" wx:key='*this'>{{item}}月</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class='picker-item' wx:for="{{endDayList}}" wx:key='*this'>{{item}}日</view>
+          </picker-view-column>
+          <picker-view-column hidden="{{!hourColumn}}" >
+            <view class='picker-item' wx:for="{{endHourList}}" wx:key='*this'>{{item}}时</view>
+          </picker-view-column>
+          <picker-view-column hidden="{{!minColumn}}">
+            <view class='picker-item' wx:for="{{endMinuteList}}" wx:key='*this'>{{item}}分</view>
+          </picker-view-column>
+          <picker-view-column hidden="{{!secColumn}}">
+            <view class='picker-item' wx:for="{{startSecondList}}" wx:key='*this'>{{item}}秒</view>
+          </picker-view-column>
+      
+      
+        </picker-view>
+    </view>
+    <view class="flex_c">
+      <view class='complete' bindtap="onConfirm">完成</view>
+  </view>
+
+    <!-- <view class='sure' bindtap="onConfirm">确定</view> -->
+
+  </view>
+  <!-- 遮罩 -->
+  <view class="sensorType-screen" bindtap="hideModal" animation="{{animationOpacity}}"/>
+</view>

@@ -1,34 +1,35 @@
 // components/supertimePicker/supertimePicker.js
-const date = new Date()
-let temArray = []
-for (let i = 0; i< 10; i++) {
-  temArray.push(`0${i}`)
-}
-// 初始化数据
-const years = createArray(1980, date.getFullYear() + 10)
-const months = createArray(1, 12)
-let days = createArray(1, 31)
-const hours = createArray(0, 23)
-const minutes = [...temArray].concat(createArray(10, 59))
-const seconds = [...temArray].concat(createArray(10, 59))
-temArray = null
-let chosenArray = [date.getFullYear() - 1980, date.getMonth(), date.getDate() - 1]
+// const date = new Date()
+// let temArray = []
+// for (let i = 0; i< 10; i++) {
+//   temArray.push(`0${i}`)
+// }
+// // 初始化数据
+// const years = createArray(1980, date.getFullYear() + 10)
+// const months = createArray(1, 12)
+// let days = createArray(1, 31)
+// const hours = createArray(0, 23)
+// const minutes = [...temArray].concat(createArray(10, 59))
+// const seconds = [...temArray].concat(createArray(10, 59))
+// temArray = null
+// let chosenArray = [date.getFullYear() - 1980, date.getMonth(), date.getDate() - 1]
 
 const modeMap = ['year', 'month', 'day', 'hour', 'minute', 'second']
 
 Component({
   properties: {
-    mode: String
+    mode: String,
+    defaultTime: String
   },
-  data: {
-    years,
-    months,
-    days,
-    hours,
-    minutes,
-    seconds,
-    chosenArray // 已选时间的index
-  },
+  // data: {
+  //   years,
+  //   months,
+  //   days,
+  //   hours,
+  //   minutes,
+  //   seconds,
+  //   chosenArray // 已选时间的index
+  // },
 
   /**
    * 组件的方法列表
@@ -75,10 +76,41 @@ Component({
         e
       } 
       this.triggerEvent('timeChange', detail)
+    },
+    /**
+     * 初始化默认已选时间
+     */
+    initTime() {
+      let defaultTime
+      defaultTime = this.properties.defaultTime ? new Date(this.properties.defaultTime) : new Date()
+      // 初始化数据
+      let temArray = []
+      for (let i = 0; i< 10; i++) {
+        temArray.push(`0${i}`)
+      }
+      const years = createArray(defaultTime.getFullYear() - 20, defaultTime.getFullYear() + 20)
+      const months = createArray(1, 12)
+      let days = createArray(1, 31)
+      const hours = createArray(0, 23)
+      const minutes = [...temArray].concat(createArray(10, 59))
+      const seconds = [...temArray].concat(createArray(10, 59))
+      temArray = null
+      let chosenArray = [20, defaultTime.getMonth(), defaultTime.getDate() - 1]
+      this.setData({
+        years,
+        months,
+        days,
+        hours,
+        minutes,
+        seconds,
+        chosenArray // 已选时间的index
+      })
     }
+
   },
   lifetimes: {
     attached() {
+      this.initTime()
       // 根据mode渲染picker
       let isShownColumn
       switch (this.properties.mode) {

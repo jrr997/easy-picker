@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "easy-picker": "/components/easyPicker/easyPicker"
+  }
+}

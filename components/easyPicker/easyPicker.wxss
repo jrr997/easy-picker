@@ -3,7 +3,7 @@
   height: 68rpx;
 }
 .picker-column {
-  height: 400rpx; /* picker的高度 */
+  height: 380rpx; /* picker的高度 */
   width: 100%;
 }
 .picker-column__list {
