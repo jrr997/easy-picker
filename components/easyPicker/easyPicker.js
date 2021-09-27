@@ -1,19 +1,3 @@
-// components/supertimePicker/supertimePicker.js
-// const date = new Date()
-// let temArray = []
-// for (let i = 0; i< 10; i++) {
-//   temArray.push(`0${i}`)
-// }
-// // 初始化数据
-// const years = createArray(1980, date.getFullYear() + 10)
-// const months = createArray(1, 12)
-// let days = createArray(1, 31)
-// const hours = createArray(0, 23)
-// const minutes = [...temArray].concat(createArray(10, 59))
-// const seconds = [...temArray].concat(createArray(10, 59))
-// temArray = null
-// let chosenArray = [date.getFullYear() - 1980, date.getMonth(), date.getDate() - 1]
-
 const modeMap = ['year', 'month', 'day', 'hour', 'minute', 'second']
 
 Component({
@@ -52,7 +36,7 @@ Component({
         value[1] !== this.data.chosenArray[1])){ // 只有变化的是年或月才需要重新计算days
         // TODO 排除时分秒选择器
         let [choosenYear, choosenMonth, ...rest] = this.getTransArray(value)[0]
-          console.log(choosenMonth,choosenYear);
+          // console.log(choosenMonth,choosenYear);
         const dayNum = getDay(choosenMonth, choosenYear)
         if (dayNum !== this.data.days.length) { // 新值不等于旧值时才改变days数组
           const newDays = createArray(1, dayNum)
@@ -69,10 +53,12 @@ Component({
       // 发出change事件
       // 根据mode暴露detail
       const [front, back] = this.getTransArray(value)
+      // front数组转为字符串数组
+      let frontStrArray = front.map(item => item >= 10 ? item : '0' + item)
       const detail = {
         timeArray: [...front, ...back].slice(0, value.length),
         timeIndex: value,
-        time: front.join('-') + ' ' + back.join(':'),
+        time: frontStrArray.join('-') + ' ' + back.join(':'),
         e
       } 
       this.triggerEvent('timeChange', detail)

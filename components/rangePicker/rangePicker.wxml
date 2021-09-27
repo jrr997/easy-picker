@@ -1,10 +1,9 @@
-<!--components/timePicker/timePicker.wxml-->
-<!-- 自定义时间筛选器 -->
+<!-- datePicker -->
 <view hidden="{{!pickerShow}}">
   <view class="picker-container {{pickerShow?'show_picker':'hide_picker'}}" animation="{{animationData}}">
     <view class="header">
-      <view class="close" bindtap="hideModal"><i class="iconfont iconguanbi1 x"></i></view>
-      <view class="title" bindtap="getData">有效期筛选</view>
+      <view class="close" bindtap="onCancel"><view class="close-pic x"></view></view>
+      <view class="title" bindtap="getData">{{title}}</view>
     </view>
 
     <view class="btn-box">
@@ -20,7 +19,8 @@
       <easy-picker mode="day" bindtimeChange="onEndTimeChange" />
     </view>
     <view class="flex_c">
-      <view class='complete' bindtap="onConfirm">完成</view>
+      <view class="tips" hidden="{{!isTipsShow}}">{{tips}}</view>
+      <view class='complete' catchtap="onConfirm">完成</view>
   </view>
 
   </view>

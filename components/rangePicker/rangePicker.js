@@ -1,13 +1,21 @@
-// components/rangePicker.js
+/**
+ * 日期范围选择器
+ * TODO: 默认选择时间
+ */
+
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
+    title: {
+      type: String,
+      value: '日期选择器'
+    },
     pickerShow: {
       type: Boolean,
       observer:function(val){   //弹出动画
-        // console.log(this.data);
+        // console.log(val);
         if(val){
           let animation = wx.createAnimation({
             duration: 500,
@@ -84,7 +92,9 @@ Component({
   data: {
     tabIndex: 0,
     showStartTime: '',
-    showEndTime: ''
+    showEndTime: '',
+    isTipsShow: false,
+    tips: '请选择开始时间和结束时间' // tips内容
   },
 
   /**
@@ -96,47 +106,67 @@ Component({
       const index = e.target.dataset.type
       this.setData({
         tabIndex: e.target.dataset.type || 0
-      }, () => {
-        // if (this.data.tabIndex === 1) { // 开始切换到结束
-        //   // 显示已选开始时间
-        //   this.setData({
-        //     showStartTime: this.data.startPickTime.slice(0, 10),
-        //     // showEndTime: null
-        //   }) 
-        // } else { // 结束切换到开始
-        //   this.setData({
-        //     showEndTime: this.data.endPickTime.slice(0, 10),
-        //     // showStartTime: null
-        //   }) 
-        // }
       })
     },
     onStartTimeChange(e) {
       console.log(e.detail);
       const date = e.detail.time.split(' ')[0] 
       this.setData({
-        startTime: date,
+        startTime: e.detail.time,
         showStartTime: date
       })
     },
     onEndTimeChange(e) {
       console.log(e.detail);
-      const date = e.detail.time.split(' ')[0] 
+      const date = e.detail.time.split(' ')[0]
       this.setData({
-        endTime: date,
+        endTime: e.detail.time,
         showEndTime: date
+      })
+    },
+    onConfirm() {
+      console.log(this.data.startTime,this.data.endTime);
+      if (this.data.startTime && this.data.endTime) {
+        if (new Date(this.data.startTime).getTime() <= new Date(this.data.endTime).getTime()) {
+          const detail = {
+            startTime: this.data.startTime,
+            endTime: this.data.endTime
+          }
+          this.setData({
+            // pickerShow: false,
+            isTipsShow: false,
+          })
+          this.triggerEvent('onConfirm', detail)
+        } else { // 开始时间大于结束时间
+          this.setData({
+            tips: '开始时间必须小于结束时间',
+            isTipsShow: true
+          })
+        }
+      } else { // 没有选择开始时间或结束时间
+        this.setData({
+          tips: '请选择开始时间和结束时间',
+          isTipsShow: true
+        })
+      }
+    },
+    onCancel() {
+      this.triggerEvent('onCancel')
+      this.setData({
+        // pickerShow: false,
+        isTipsShow: false
+      })
+    },
+    hideModal() {
+      this.setData({
+        pickerShow: false
       })
     }
   },
-  onConfirm() {
-    if (this.data.showStartTime && this.data.showEndTime) {
-      const detail = {
-        startTime: this.data.showStartTime,
-        endTime: this.data.showEndTime
-      }
-      this.triggerEvent('onConfirm', detail)
-    } else {
-      
+  lifetimes: {
+    detached() {
+      console.log('datepicker detached');
     }
-  },
+  }
+
 })

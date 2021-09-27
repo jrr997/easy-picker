@@ -1,5 +1,8 @@
 
-<view style="margin:50px 0 300px 50px;font-size:20px">已选时间： {{time}}</view>
-<easy-picker mode="hour" bindtimeChange="onTimeChange" />
+<view style="margin:100rpx 0 600rpx 20rpx;font-size:20px;">已选时间： {{showDate}}</view>
+<view>
+  <button catchtap="btnClick">日期选择器</button>
+</view>
+<!-- <easy-picker mode="hour" bindtimeChange="onTimeChange" /> -->
 <!-- <time-picker mode="hour" bindtimeChange="onTimeChange" pickerShow="{{true}}"/> -->
-<range-picker mode="hour" bindtimeChange="onTimeChange" pickerShow="{{true}}"/>
+<range-picker wx:if="{{isPickerShow}}" pickerShow="{{isPickerShow}}" bind:onConfirm="onConfirm" bind:onCancel="onCancel"></range-picker>
